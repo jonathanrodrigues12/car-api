@@ -1,76 +1,109 @@
-Teste para desenvolvedor do Estadão - Jonathan Rodrigues
+## 📦 Setup do Ambiente (Docker)
 
-1 - Execute o arquivo [docker-composer.yaml](docker-composer.yaml) para a instalação do ambiente com o banco de dados, é necessário ter o docker-compose instalado.
-````
+Para executar o projeto localmente com Docker, siga os passos abaixo:
+
+### 1. Suba os containers com Docker Compose
+Certifique-se de ter o Docker e o Docker Compose instalados:
+```bash
 docker-compose up -d
-````
-2 - Importe o [script sql](script.sql)no banco SLICEIT instalado no container mysql-container, a senha root está localizado no script [docker-compose](docker-composer.yaml)
+```
 
-3 - Altere a variável host da classe de [conexão do banco de dados](classes/conexao.php)
+### 2. Importe o script SQL
+Utilize o arquivo [`script.sql`](script.sql) para popular o banco de dados `SLICEIT`, que é criado automaticamente no container `mysql-container`.
 
+> 🔐 A senha do usuário `root` pode ser encontrada no próprio arquivo [`docker-compose.yaml`](docker-compose.yaml).
 
+### 3. Configure a conexão com o banco
+Atualize a variável `host` na classe [`conexao.php`](classes/conexao.php) para apontar corretamente para o container MySQL.
 
+---
 
-==============================
+## 📋 Requisitos do Projeto
 
-Olá candidato,
+O projeto está dividido em **duas etapas principais**, avaliando seus conhecimentos em **PHP (Back-End)** e **HTML/CSS/JavaScript (Front-End)**.
 
-Esse teste consiste em 2 etapas para avaliarmos seu conhecimento em PHP e Front-End (HTML5, CSS e JavaScript)
+---
 
-Para realizar o teste, você deve dar um fork neste repositório e depois clona-lo na pasta <document_root> da máquina que está realizando o teste.
+## 🚀 Como Iniciar
 
-Crie um branch com seu nome, e quando finalizar todo o desenvolvimento, você deverá enviar um pull-request com sua versão.
+1. Faça um **fork** deste repositório.
+2. Clone o fork na sua máquina:
+   ```bash
+   git clone https://github.com/<seu-usuario>/estadao-dev-test.git
+   ```
+3. Crie uma branch com seu nome:
+   ```bash
+   git checkout -b jonathan-rodrigues
+   ```
+4. Ao finalizar, envie um **Pull Request** com sua solução.
 
-O teste
---------
+---
 
-### Back-End/PHP
+## 🔧 Etapa 1 - Back-End (PHP)
 
-A primeira etapa será o desenvolvimento **backend/PHP**:
+Desenvolver uma **mini API RESTful** para manipular registros de **Carros**.
 
-**Descrição:**
+### Requisitos
 
-- Você deverá desenvolver uma 'mini api' para que seja possível realizar operações CRUD do objeto Carro.
-> **Obs:**
-> - Você pode usar arquivo (txt, json) como banco de dados.
-> - Cada carro deve ter ID, Marca, Modelo, Ano.
+- Utilizar arquivos (`.txt`, `.json`) como banco de dados.
+- A entidade **Carro** deve conter os campos: `id`, `marca`, `modelo` e `ano`.
 
-Sugerimos o retorno dessa 'mini api' nas seguinte urls:
+### Endpoints sugeridos
 
- - `/carros` - [GET] deve retornar todos os carros cadastrados.
- - `/carros` - [POST] deve cadastrar um novo carro.
- - `/carros/{id}`[GET] deve retornar o carro com ID especificado.
- - `/carros/{id}`[PUT] deve atualizar os dados do carro com ID especificado.
- - `/carros/{id}`[DELETE] deve apagar o carro com ID especificado.
+| Método | Rota             | Descrição                          |
+|--------|------------------|------------------------------------|
+| GET    | `/carros`        | Retorna todos os carros            |
+| POST   | `/carros`        | Cria um novo carro                 |
+| GET    | `/carros/{id}`   | Retorna um carro específico        |
+| PUT    | `/carros/{id}`   | Atualiza um carro existente        |
+| DELETE | `/carros/{id}`   | Remove um carro existente          |
 
-### Front-End
+---
 
-Para a segunda etapa do teste, você deverá desenvolver uma SPA (Single Page Application) e nela deve ser possível:
+## 💻 Etapa 2 - Front-End (SPA)
 
-- Ver a lista de carros cadastrados
+Criar uma aplicação **SPA (Single Page Application)** com as seguintes funcionalidades:
+
+### Funcionalidades obrigatórias
+
+- Listar carros cadastrados
 - Criar um novo carro
 - Editar um carro existente
-- Apagar um carro existente
+- Excluir um carro
 
-> **Obs:**
-> - A página deve ser responsiva.
-> - A página deve funcionar 100% via AJAX, sem outros carregamentos de páginas.
-> - Ao criar/editar um carro, o campo "marca" deverá ser um `SELECT`
+> **Requisitos adicionais:**
+> - A aplicação deve ser responsiva
+> - Todas as interações devem ocorrer via **AJAX**, sem recarregar a página
+> - O campo `marca` no formulário deve ser um elemento `<select>`
 
-### Ambiente
+---
 
-Esse teste com um ambiente Docker funcional, ou seja, basta rodar os comandos para subir o container da aplicação e acessar a URL do projeto no navegador.
+## 🐳 Ambiente via Docker
 
-Para rodar o ambiente, é necessário ter o Docker Compose instalado, e rodar o seguinte comando:
-> docker-compose up -d nginx
+Um ambiente Docker já está pré-configurado neste projeto. Após iniciar os containers, acesse:
 
-Após o ambiente subir, basta acessar a URL abaixo e começar a desenvolver:
-> http://localhost:8080
+```
+http://localhost:8080
+```
 
-### Observações importantes:
-- O teste só será considerado se rodar através do Docker.
-- Caso seja necessário, você pode alterar **qualquer** configuração do Docker. Atente-se apenas para que o ambiente não precise de nenhuma configuração adicional.
-- Você não deve se prender aos arquivos do repositório. Fique a vontade para criar outros.
-- Você pode usar frameworks, tanto para o front-end, quanto para o back-end, mas um código limpo será melhor avaliado.
-- Você pode usar ferramentas de automação (Grunt, Gulp), mas deverá informar o uso completo para funcionamento do teste.
-- Será considerado ponto positivo no teste a utilização de JS puro, orientação a objetos, design patterns e rotinas para testes.
+> **Comando para subir apenas o serviço do NGINX (frontend):**
+```bash
+docker-compose up -d nginx
+```
+
+---
+
+## 📝 Observações Finais
+
+- ✅ O projeto **deve rodar via Docker** para ser avaliado.
+- 🔧 Alterações no `docker-compose.yaml` são permitidas, desde que o ambiente continue funcional sem configurações manuais adicionais.
+- 📁 Você pode reestruturar os arquivos livremente.
+- 🧰 É permitido utilizar frameworks no front-end e back-end, desde que o código seja limpo e bem organizado.
+- ⚙️ Ferramentas de automação como **Gulp** ou **Grunt** podem ser utilizadas, com instruções claras de uso.
+- 🌟 Serão considerados diferenciais:
+  - Uso de **JavaScript puro**
+  - **Programação orientada a objetos**
+  - Aplicação de **design patterns**
+  - Presença de **testes automatizados**
+
+---
