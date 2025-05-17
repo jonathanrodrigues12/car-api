@@ -1,109 +1,85 @@
-## 📦 Setup do Ambiente (Docker)
+# 🚗 Mini API de Carros
 
-Para executar o projeto localmente com Docker, siga os passos abaixo:
+**Autor:** Jonathan Rodrigues
 
-### 1. Suba os containers com Docker Compose
-Certifique-se de ter o Docker e o Docker Compose instalados:
+## 📘 Visão Geral
+
+Este projeto é uma aplicação web simples desenvolvida em PHP que oferece uma API para gerenciamento de carros, permitindo operações de criação, leitura, atualização e exclusão (CRUD). A aplicação também inclui uma interface front-end para interação com a API.
+
+## 🚀 Funcionalidades
+
+- **API RESTful** para gerenciamento de carros:
+  - Criar, listar, atualizar e deletar registros de carros.
+- **Interface Web** para interação com a API:
+  - Formulário para adicionar novos carros.
+  - Listagem de carros existentes.
+  - Opções para editar e remover carros.
+- **Persistência de dados** utilizando MySQL.
+
+## 🛠️ Requisitos
+
+- PHP 7.4 ou superior
+- Composer
+- MySQL
+- Docker e Docker Compose (opcional, para ambiente containerizado)
+
+## 📦 Instalação
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/jonathanrodrigues12/mini-api-carro.git
+cd mini-api-carro
+```
+
+### 2. Configurar o ambiente
+
+#### Opção 1: Utilizando Docker
+
+- Certifique-se de que o Docker e o Docker Compose estão instalados em sua máquina.
+- Execute o seguinte comando para iniciar os containers:
+
 ```bash
 docker-compose up -d
 ```
 
-### 2. Importe o script SQL
-Utilize o arquivo [`script.sql`](script.sql) para popular o banco de dados `SLICEIT`, que é criado automaticamente no container `mysql-container`.
+- O serviço estará disponível em `http://localhost:8080`.
 
-> 🔐 A senha do usuário `root` pode ser encontrada no próprio arquivo [`docker-compose.yaml`](docker-compose.yaml).
+#### Opção 2: Ambiente local
 
-### 3. Configure a conexão com o banco
-Atualize a variável `host` na classe [`conexao.php`](classes/conexao.php) para apontar corretamente para o container MySQL.
+- Configure um servidor web (Apache, Nginx, etc.) apontando para o diretório do projeto.
+- Crie um banco de dados MySQL chamado `SLICEIT`.
+- Importe o arquivo `script.sql` localizado na raiz do projeto para o banco de dados.
+- Atualize as configurações de conexão com o banco de dados no arquivo `classes/conexao.php`.
 
----
+### 3. Instalar dependências PHP
 
-## 📋 Requisitos do Projeto
+Se estiver utilizando o Composer, execute:
 
-O projeto está dividido em **duas etapas principais**, avaliando seus conhecimentos em **PHP (Back-End)** e **HTML/CSS/JavaScript (Front-End)**.
-
----
-
-## 🚀 Como Iniciar
-
-1. Faça um **fork** deste repositório.
-2. Clone o fork na sua máquina:
-   ```bash
-   git clone https://github.com/<seu-usuario>/estadao-dev-test.git
-   ```
-3. Crie uma branch com seu nome:
-   ```bash
-   git checkout -b jonathan-rodrigues
-   ```
-4. Ao finalizar, envie um **Pull Request** com sua solução.
-
----
-
-## 🔧 Etapa 1 - Back-End (PHP)
-
-Desenvolver uma **mini API RESTful** para manipular registros de **Carros**.
-
-### Requisitos
-
-- Utilizar arquivos (`.txt`, `.json`) como banco de dados.
-- A entidade **Carro** deve conter os campos: `id`, `marca`, `modelo` e `ano`.
-
-### Endpoints sugeridos
-
-| Método | Rota             | Descrição                          |
-|--------|------------------|------------------------------------|
-| GET    | `/carros`        | Retorna todos os carros            |
-| POST   | `/carros`        | Cria um novo carro                 |
-| GET    | `/carros/{id}`   | Retorna um carro específico        |
-| PUT    | `/carros/{id}`   | Atualiza um carro existente        |
-| DELETE | `/carros/{id}`   | Remove um carro existente          |
-
----
-
-## 💻 Etapa 2 - Front-End (SPA)
-
-Criar uma aplicação **SPA (Single Page Application)** com as seguintes funcionalidades:
-
-### Funcionalidades obrigatórias
-
-- Listar carros cadastrados
-- Criar um novo carro
-- Editar um carro existente
-- Excluir um carro
-
-> **Requisitos adicionais:**
-> - A aplicação deve ser responsiva
-> - Todas as interações devem ocorrer via **AJAX**, sem recarregar a página
-> - O campo `marca` no formulário deve ser um elemento `<select>`
-
----
-
-## 🐳 Ambiente via Docker
-
-Um ambiente Docker já está pré-configurado neste projeto. Após iniciar os containers, acesse:
-
-```
-http://localhost:8080
-```
-
-> **Comando para subir apenas o serviço do NGINX (frontend):**
 ```bash
-docker-compose up -d nginx
+composer install
 ```
 
----
+## 🧪 Uso
 
-## 📝 Observações Finais
+- Acesse a interface web em `http://localhost:8080` (ou conforme configurado).
+- Utilize os formulários disponíveis para adicionar, editar ou remover carros.
+- A API também pode ser acessada diretamente via endpoints HTTP:
 
-- ✅ O projeto **deve rodar via Docker** para ser avaliado.
-- 🔧 Alterações no `docker-compose.yaml` são permitidas, desde que o ambiente continue funcional sem configurações manuais adicionais.
-- 📁 Você pode reestruturar os arquivos livremente.
-- 🧰 É permitido utilizar frameworks no front-end e back-end, desde que o código seja limpo e bem organizado.
-- ⚙️ Ferramentas de automação como **Gulp** ou **Grunt** podem ser utilizadas, com instruções claras de uso.
-- 🌟 Serão considerados diferenciais:
-  - Uso de **JavaScript puro**
-  - **Programação orientada a objetos**
-  - Aplicação de **design patterns**
-  - Presença de **testes automatizados**
+  - `GET /api.php?acao=listar` - Lista todos os carros.
+  - `POST /api.php?acao=criar` - Cria um novo carro.
+  - `PUT /api.php?acao=atualizar&id={id}` - Atualiza um carro existente.
+  - `DELETE /api.php?acao=deletar&id={id}` - Remove um carro.
 
----
+## 📝 Observações
+
+- Certifique-se de que as extensões necessárias do PHP estão habilitadas (por exemplo, `pdo_mysql`).
+- As credenciais do banco de dados e outras configurações podem ser ajustadas conforme necessário nos arquivos de configuração.
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias e correções.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
